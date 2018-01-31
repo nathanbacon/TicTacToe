@@ -131,38 +131,4 @@ struct TicTacToe {
     
 }
 
-extension TicTacToe {
-    init(from queryItems: [URLQueryItem]) {
-        
-        var strings = Array<String?>(repeating: nil, count: queryItems.count)
-        
-        for item in queryItems {
-            
-            guard let index = Int(item.name), let value = item.value, value == "x" || value == "o" else { continue }
-            
-            strings[index] = value
-            
-        }
-        
-        self.init(from: strings)
-        printBoard()
-    }
-    
-    var queryItems: [URLQueryItem] {
-        get {
-            var index: Int = 0
-            var queryItems: [URLQueryItem] = []
-            
-            for row in board {
-                for mark in row {
-                    let queryItem = URLQueryItem(name: String(index), value: mark?.toString ?? "_")
-                    queryItems.append(queryItem)
-                    index += 1
-                }
-            }
-            
-            return queryItems
-        }
-    }
-}
 

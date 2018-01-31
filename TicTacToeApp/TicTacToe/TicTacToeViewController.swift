@@ -98,13 +98,3 @@ protocol TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController)
 }
 
-extension UIView {
-    var screenShot: UIImage {
-        let renderer = UIGraphicsImageRenderer(size: bounds.size)
-        let image = renderer.image { _ in
-            drawHierarchy(in: bounds, afterScreenUpdates: true)
-        }
-        return image
-    }
-}
-

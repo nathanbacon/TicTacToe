@@ -97,15 +97,18 @@ class MessagesViewController: MSMessagesAppViewController {
         
     }
     
-    func composeMessage(with queryItems: [URLQueryItem]?, with picture: UIView?) {
+    func composeMessage(with queryItems: [URLQueryItem]?, with picture: UIImage?) {
         
         var urlComponents = URLComponents()
         urlComponents.queryItems = queryItems
     
+        let layout = MSMessageTemplateLayout()
+        layout.image = picture
         
         let message = MSMessage()
         
         message.url = urlComponents.url
+        message.layout = layout
         
         activeConversation?.insert(message, completionHandler: nil)
     }

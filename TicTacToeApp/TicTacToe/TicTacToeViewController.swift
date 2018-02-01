@@ -60,12 +60,11 @@ class TicTacToeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         ticTacView = TicTacToeView()
         addCommitButton()
         ticTacModel = ticTacModel ?? TicTacToe(withSize: TicTacToe.defaultBoardSize)
- 
-        //updateBoard()
-        
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         ticTacView.addGestureRecognizer(tapGestureRecognizer)
         ticTacView.isUserInteractionEnabled = true
@@ -98,13 +97,4 @@ protocol TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController)
 }
 
-extension UIView {
-    var screenShot: UIImage {
-        let renderer = UIGraphicsImageRenderer(size: bounds.size)
-        let image = renderer.image { _ in
-            drawHierarchy(in: bounds, afterScreenUpdates: true)
-        }
-        return image
-    }
-}
 

@@ -10,6 +10,8 @@
 		7531F79D2022ABA4003FAC02 /* TicTacToeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E55402021D34000EAC739 /* TicTacToeModel.swift */; };
 		7531F79E2022ABAA003FAC02 /* TicTacToeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E55412021D34000EAC739 /* TicTacToeViewController.swift */; };
 		7531F79F2022ABC0003FAC02 /* TicTacToeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E55422021D34000EAC739 /* TicTacToeView.swift */; };
+		7531F7A32022B577003FAC02 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7531F7A22022B577003FAC02 /* Extensions.swift */; };
+		7531F7A42022B683003FAC02 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7531F7A22022B577003FAC02 /* Extensions.swift */; };
 		754E552F2021D2B000EAC739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E552E2021D2B000EAC739 /* AppDelegate.swift */; };
 		754E55342021D2B000EAC739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 754E55322021D2B000EAC739 /* Main.storyboard */; };
 		754E55362021D2B000EAC739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 754E55352021D2B000EAC739 /* Assets.xcassets */; };
@@ -50,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7531F7A22022B577003FAC02 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		754E552B2021D2B000EAC739 /* TicTacToeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		754E552E2021D2B000EAC739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		754E55332021D2B000EAC739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +142,7 @@
 		754E554F2021D80B00EAC739 /* TicTacToeMessage */ = {
 			isa = PBXGroup;
 			children = (
+				7531F7A22022B577003FAC02 /* Extensions.swift */,
 				754E55502021D80B00EAC739 /* MessagesViewController.swift */,
 				754E55522021D80B00EAC739 /* MainInterface.storyboard */,
 				754E55552021D80B00EAC739 /* Assets.xcassets */,
@@ -253,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				754E555F2021D8D800EAC739 /* MessagesViewController.swift in Sources */,
+				7531F7A42022B683003FAC02 /* Extensions.swift in Sources */,
 				754E55432021D34000EAC739 /* TicTacToeModel.swift in Sources */,
 				754E55452021D34000EAC739 /* TicTacToeView.swift in Sources */,
 				754E552F2021D2B000EAC739 /* AppDelegate.swift in Sources */,
@@ -264,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7531F7A32022B577003FAC02 /* Extensions.swift in Sources */,
 				7531F79E2022ABAA003FAC02 /* TicTacToeViewController.swift in Sources */,
 				7531F79F2022ABC0003FAC02 /* TicTacToeView.swift in Sources */,
 				7531F79D2022ABA4003FAC02 /* TicTacToeModel.swift in Sources */,

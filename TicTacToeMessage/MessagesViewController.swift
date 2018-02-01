@@ -97,7 +97,7 @@ class MessagesViewController: MSMessagesAppViewController {
         
     }
     
-    func composeMessage(with queryItems: [URLQueryItem]?, with picture: UIImage?) {
+    func composeMessage(withModel queryItems: [URLQueryItem]?, withImage picture: UIImage?) {
         
         var urlComponents = URLComponents()
         urlComponents.queryItems = queryItems
@@ -143,7 +143,7 @@ class MessagesViewController: MSMessagesAppViewController {
 
 extension MessagesViewController: TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController) {
-        composeMessage(with: nil, with: nil)
+        composeMessage(withModel: controller.ticTacModel?.queryItems, withImage: controller.ticTacView.screenShot)
         dismiss()
     }
 }

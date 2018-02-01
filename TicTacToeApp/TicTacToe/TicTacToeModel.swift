@@ -69,8 +69,13 @@ struct TicTacToe {
         return oCount >= xCount ? .x : .o
     }
     
-    mutating func commitLastMove() {
+    mutating func commitLastMove() -> Bool {
+        if lastMove == nil {
+            return false
+        }
+        
         lastMove = nil
+        return true
     }
     
     func requestData(completion: ((_ data: [[TicTacToe.TicTacMark?]]) -> Void)) {
@@ -118,16 +123,6 @@ struct TicTacToe {
         isEnabled = true
     }
     
-    private func printBoard() {
-        for row in board {
-            var rowStr = ""
-            for item in row {
-                rowStr += item?.toString ?? "_"
-                rowStr += " "
-            }
-
-        }
-    }
     
 }
 

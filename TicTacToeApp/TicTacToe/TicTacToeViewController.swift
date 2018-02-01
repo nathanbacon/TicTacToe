@@ -56,8 +56,9 @@ class TicTacToeViewController: UIViewController {
     }
     
     @objc private func handleCommit() {
-        ticTacModel?.commitLastMove()
-        delegate?.didCommitMove(with: self)
+        if ticTacModel?.commitLastMove() ?? false {
+            delegate?.didCommitMove(with: self)
+        }
     }
 
     override func viewDidLoad() {

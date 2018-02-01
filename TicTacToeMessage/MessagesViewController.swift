@@ -97,6 +97,19 @@ class MessagesViewController: MSMessagesAppViewController {
         
     }
     
+    func composeMessage(with queryItems: [URLQueryItem]?, with picture: UIView?) {
+        
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = queryItems
+    
+        
+        let message = MSMessage()
+        
+        message.url = urlComponents.url
+        
+        activeConversation?.insert(message, completionHandler: nil)
+    }
+    
     // MARK: Helpers
     private func configureChildViewController(_ viewController: UIViewController) {
         addChildViewController(viewController)
@@ -127,7 +140,7 @@ class MessagesViewController: MSMessagesAppViewController {
 
 extension MessagesViewController: TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController) {
-        //composeMessage(with: controller.ticTacModel?.queryItems, andWith: controller.ticTacView.screenShot)
+        composeMessage(with: nil, with: nil)
         dismiss()
     }
 }

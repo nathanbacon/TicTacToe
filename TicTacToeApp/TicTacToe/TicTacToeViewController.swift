@@ -41,7 +41,9 @@ class TicTacToeViewController: UIViewController {
     var delegate: TicTacToeViewControllerDelegate?
     
     private func updateBoard() {
-        ticTacModel?.requestData(completion: ticTacView.syncBoard(with: ))
+        if let ticTacView = ticTacView {
+            ticTacModel?.requestData(completion: ticTacView.syncBoard(with: ))
+        }
     }
     
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
@@ -76,7 +78,7 @@ class TicTacToeViewController: UIViewController {
         button.backgroundColor = UIColor.green
         button.setTitle("Commit", for: .normal)
         
-        button.addTarget(delegate, action: #selector(handleCommit), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(handleCommit), for: UIControlEvents.touchUpInside)
         
         view.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false

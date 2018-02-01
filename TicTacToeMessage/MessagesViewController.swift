@@ -28,6 +28,7 @@ class MessagesViewController: MSMessagesAppViewController {
         // This will happen when the extension is about to present UI.
         
         // Use this method to configure the extension and restore previously stored state.
+        presentViewController(for: conversation, with: presentationStyle)
     }
     
     override func didResignActive(with conversation: MSConversation) {
@@ -61,14 +62,40 @@ class MessagesViewController: MSMessagesAppViewController {
         // Called before the extension transitions to a new presentation style.
     
         // Use this method to prepare for the change in presentation style.
+        removeAllChildViewControllers()
     }
     
     override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
         // Called after the extension transitions to a new presentation style.
     
         // Use this method to finalize any behaviors associated with the change in presentation style.
+        
+       presentViewController(for: activeConversation, with: presentationStyle)
     }
     
+    // MARK: My Messenger Functions
+    
+    private func presentViewController(for conversation: MSConversation?, with presentationStyle: MSMessagesAppPresentationStyle) {
+        removeAllChildViewControllers()
+        var viewController: UIViewController
+        
+        if(presentationStyle == .expanded) {
+            
+            let ticTacViewController = TicTacToeViewController()
+
+            ticTacViewController.delegate = self
+
+            ticTacViewController.ticTacModel = TicTacToe(withSize: TicTacToe.defaultBoardSize)
+
+            viewController = ticTacViewController
+        } else {
+            viewController = UIViewController()
+            viewController.view.backgroundColor = UIColor.white
+        }
+        
+        configureChildViewController(viewController)
+        
+    }
     
     // MARK: Helpers
     private func configureChildViewController(_ viewController: UIViewController) {
@@ -96,4 +123,11 @@ class MessagesViewController: MSMessagesAppViewController {
         }
     }
 
+}
+
+extension MessagesViewController: TicTacToeViewControllerDelegate {
+    func didCommitMove(with controller: TicTacToeViewController) {
+        //composeMessage(with: controller.ticTacModel?.queryItems, andWith: controller.ticTacView.screenShot)
+        dismiss()
+    }
 }

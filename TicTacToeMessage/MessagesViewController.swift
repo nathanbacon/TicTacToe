@@ -68,5 +68,32 @@ class MessagesViewController: MSMessagesAppViewController {
     
         // Use this method to finalize any behaviors associated with the change in presentation style.
     }
+    
+    
+    // MARK: Helpers
+    private func configureChildViewController(_ viewController: UIViewController) {
+        addChildViewController(viewController)
+        
+        viewController.view.frame = view.bounds
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(viewController.view)
+        
+        NSLayoutConstraint.activate([
+            viewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            viewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            viewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            viewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        
+        viewController.didMove(toParentViewController: self)
+    }
+    
+    private func removeAllChildViewControllers() {
+        childViewControllers.forEach {
+            $0.willMove(toParentViewController: nil)
+            $0.view.removeFromSuperview()
+            $0.removeFromParentViewController()
+        }
+    }
 
 }

@@ -125,7 +125,7 @@ struct TicTacToe {
                 rowStr += item?.toString ?? "_"
                 rowStr += " "
             }
-            print(rowStr)
+
         }
     }
     

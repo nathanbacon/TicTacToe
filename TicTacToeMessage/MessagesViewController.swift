@@ -93,7 +93,7 @@ class MessagesViewController: MSMessagesAppViewController {
             // MARK: Prevent cheating
             
             if let localID = activeConversation?.localParticipantIdentifier, let remoteID = conversation?.selectedMessage?.senderParticipantIdentifier {
-                ticTacViewController.ticTacModel?.isEnabled = localID != remoteID
+                //ticTacViewController.ticTacModel?.isEnabled = localID != remoteID
             }
             
             // ENDMARK: Prevent cheating
@@ -116,7 +116,9 @@ class MessagesViewController: MSMessagesAppViewController {
         let layout = MSMessageTemplateLayout()
         layout.image = picture
         
-        let message = MSMessage()
+        //let message = MSMessage()
+        let session = activeConversation?.selectedMessage?.session ?? MSSession()
+        let message = MSMessage(session: session)
         
         message.url = urlComponents.url
         message.layout = layout

@@ -11,16 +11,6 @@ import Messages
 
 class MessagesViewController: MSMessagesAppViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: - Conversation Handling
     
     override func willBecomeActive(with conversation: MSConversation) {
@@ -84,8 +74,19 @@ class MessagesViewController: MSMessagesAppViewController {
             let ticTacViewController = TicTacToeViewController()
 
             ticTacViewController.delegate = self
+            
+            // MARK: enable message receiving
+            var ticTacModel: TicTacToe?
+            
+            if let message = conversation?.selectedMessage, let url = message.url {
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                if let queryItems = components?.queryItems {
+                    ticTacModel = TicTacToe(from: queryItems)
+                }
+            }
 
-            ticTacViewController.ticTacModel = TicTacToe(withSize: TicTacToe.defaultBoardSize)
+            ticTacViewController.ticTacModel = ticTacModel ?? TicTacToe(withSize: TicTacToe.defaultBoardSize)
+            // MARK: End message receiving
 
             viewController = ticTacViewController
         } else {

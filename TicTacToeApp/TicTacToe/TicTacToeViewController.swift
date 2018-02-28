@@ -10,6 +10,10 @@ import UIKit
 
 class TicTacToeViewController: UIViewController {
     
+    // the delegate is who cares when a move is made
+    // in our case, the delegate is the messagesViewController
+    var delegate: TicTacToeViewControllerDelegate?
+    
     var ticTacView: TicTacToeView! {
         didSet {
             guard ticTacView != nil else { return }
@@ -38,13 +42,19 @@ class TicTacToeViewController: UIViewController {
         }
     }
     
-    var delegate: TicTacToeViewControllerDelegate?
-    
     private func updateBoard() {
         if let ticTacView = ticTacView {
             ticTacModel?.requestData(completion: ticTacView.syncBoard(with: ))
         }
     }
+    
+    @objc private func handleCommit() {
+        if ticTacModel?.commitLastMove() ?? false {
+            delegate?.didCommitMove(with: self)
+        }
+    }
+
+    // MARK: unneccessary to explain
     
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: ticTacView)
@@ -55,12 +65,6 @@ class TicTacToeViewController: UIViewController {
         
     }
     
-    @objc private func handleCommit() {
-        if ticTacModel?.commitLastMove() ?? false {
-            delegate?.didCommitMove(with: self)
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -96,6 +100,7 @@ class TicTacToeViewController: UIViewController {
 
 }
 
+// MARK: Explain that the messagesViewController is the delegate of the this VC
 protocol TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController)
 }

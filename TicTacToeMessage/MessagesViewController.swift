@@ -86,7 +86,17 @@ class MessagesViewController: MSMessagesAppViewController {
             }
 
             ticTacViewController.ticTacModel = ticTacModel ?? TicTacToe(withSize: TicTacToe.defaultBoardSize)
+            
             // MARK: End message receiving
+            
+            
+            // MARK: Prevent cheating
+            
+            if let localID = activeConversation?.localParticipantIdentifier, let remoteID = conversation?.selectedMessage?.senderParticipantIdentifier {
+                ticTacViewController.ticTacModel?.isEnabled = localID != remoteID
+            }
+            
+            // ENDMARK: Prevent cheating
 
             viewController = ticTacViewController
         } else {

@@ -8,6 +8,11 @@
 
 import UIKit
 
+// MARK: Explain that the messagesViewController is the delegate of the this VC
+protocol TicTacToeViewControllerDelegate {
+    func didCommitMove(with controller: TicTacToeViewController)
+}
+
 class TicTacToeViewController: UIViewController {
     
     // the delegate is who cares when a move is made
@@ -100,9 +105,6 @@ class TicTacToeViewController: UIViewController {
 
 }
 
-// MARK: Explain that the messagesViewController is the delegate of the this VC
-protocol TicTacToeViewControllerDelegate {
-    func didCommitMove(with controller: TicTacToeViewController)
-}
+
 
 

@@ -17,7 +17,6 @@ below. Click and hold that to select your target, one's the standalone app and t
 
 ## Credits
 
-Lots of credit goes to Apple's demo app for Messages. Some code segments were blatantly lifted but a good part of this
-is unique and covers a few things Apple's demo doesn't. Their demo is really good and can be found at the link below.
+Lots of credit goes to Apple's demo app for Messages. Some code segments were blatantly lifted from that but a good part of this is unique and covers a few things Apple's demo doesn't. Their demo is really good and can be found at the link below.
 
 https://developer.apple.com/library/content/samplecode/IceCreamBuilder/Introduction/Intro.html

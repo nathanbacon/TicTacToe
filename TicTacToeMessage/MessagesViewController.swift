@@ -66,6 +66,7 @@ class MessagesViewController: MSMessagesAppViewController {
             // MARK: Prevent cheating
             
             if let localID = activeConversation?.localParticipantIdentifier, let remoteID = conversation?.selectedMessage?.senderParticipantIdentifier {
+                // uncomment this to make it so one player can make multiple moves
                 //ticTacViewController.ticTacModel?.isEnabled = localID != remoteID
             }
             

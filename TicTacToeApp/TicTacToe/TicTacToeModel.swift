@@ -20,6 +20,16 @@ struct TicTacToe {
 
     var board: [Array<TicTacMark?>]
     
+    var signature: String {
+        var sig = ""
+        for row in board {
+            for mark in row {
+                sig.append(mark?.toString ?? "_")
+            }
+        }
+        return sig
+    }
+    
     mutating func commitLastMove() -> Bool {
         guard lastMove != nil else { return false }
         lastMove = nil

@@ -19,7 +19,7 @@ extension UIView {
 }
 
 extension TicTacToe {
-    init(from queryItems: [URLQueryItem]) {
+    init?(from queryItems: [URLQueryItem]) {
         
         var strings = Array<String?>(repeating: nil, count: queryItems.count)
         

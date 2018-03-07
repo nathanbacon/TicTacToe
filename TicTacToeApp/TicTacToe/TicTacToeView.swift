@@ -12,7 +12,7 @@ class TicTacToeView: UIView {
     
     private static let lineToViewRatio: CGFloat = 0.90
     
-    var boardSize: Int = 3
+    var boardSize: Int = TicTacToe.defaultBoardSize
     
     lazy var boardArea: CGRect = {
         let sideLength = TicTacToeView.lineToViewRatio * bounds.width
@@ -55,6 +55,33 @@ class TicTacToeView: UIView {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
 
+    }
+    
+    func drawWin(from start: IndexPath, to end: IndexPath){
+        guard start.row < boardSize, start.section < boardSize, start.row >= 0, start.section >= 0,
+            end.section < boardSize, end.row < boardSize, end.row >= 0, end.section >= 0  else { return }
+        
+        let barThickness = self.barThickness * 0.65
+        let barLength = (squares[0][boardSize - 1].maxX - squares[0][0].minX)
+        if start.row == end.row {
+            // this is a horizontal row
+            
+            let row = squares[start.row]
+            let startOrigin = CGPoint(x: row[0].minX, y: row[0].midY - barThickness / 2)
+            
+            //let endOrigin = CGPoint(x: row[boardSize - 1].maxX, y: row[boardSize-1].midY - barThickness / 2)
+            let size = CGSize(width: barLength, height: barThickness)
+            let rect = CGRect(origin: startOrigin, size: size)
+
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: 20)
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            layer.addSublayer(shapeLayer)
+        } else if start.section == end.section {
+            // this is a vertical row
+        } else {
+            // this is a diagonal
+        }
     }
     
     private func createVeritcalBars() {

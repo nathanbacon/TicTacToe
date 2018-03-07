@@ -17,13 +17,18 @@ struct TicTacToe {
     var isEnabled: Bool
 
     var boardSize: Int
+    
+    var winningCoords: (IndexPath, IndexPath)?
 
     var board: [Array<TicTacMark?>]
     
     mutating func commitLastMove() -> Bool {
-        guard lastMove != nil else { return false }
-        lastMove = nil
-        return true
+        if lastMove == nil {
+            return false
+        } else {
+            lastMove = nil
+            return true
+        }
     }
     
     mutating func makeMove(at indexPath: IndexPath) -> Bool {
@@ -43,8 +48,9 @@ struct TicTacToe {
     }
     
     // intializes a board from a one-dimensial array of size n*n where n is the length of a row
-    init(from strings: [String?]) {
+    init?(from strings: [String?]) {
         let rowLen = Int(sqrt(Float(strings.count)))
+        guard rowLen*rowLen == strings.count else { return nil }
         self.init(withSize: rowLen)
         
         for (index, string) in strings.enumerated() {
@@ -90,16 +96,60 @@ struct TicTacToe {
         return oCount >= xCount ? .x : .o
     }
     
-    /*func getWin() {
-     for col in 0..<boardSize {
-     guard let topMark = board[col][0] else { continue }
-     for row in 1..<boardSize {
-     if topMark != board[col][row] {
-     break
-     }
-     }
-     }
-     }*/
+    var isWin: Bool {
+        mutating get {
+            func computeLine(rowIterator: @escaping (Int) -> Int, colIterator: @escaping (Int) -> Int, startingAt start: IndexPath) -> Bool {
+                func comp(cur: IndexPath) -> Bool {
+                    guard cur.row < boardSize, cur.section < boardSize, let curVal = board[cur.row][cur.section] else { return false }
+                    let nextRow = rowIterator(cur.row)
+                    let nextCol = colIterator(cur.section)
+                    
+                    if (nextRow == boardSize) || (nextCol == boardSize) {
+                        // reached the end of the row or column, no more to compute and it hasn't failed thus far so return true
+                        return true
+                    } else if nextRow < boardSize, nextCol < boardSize, let nextVal = board[nextRow][nextCol] {
+                        // if the two values are equal, recurse, else false
+                        return curVal == nextVal ? comp(cur: IndexPath(row: nextRow, section: nextCol)) : false
+                    } else {
+                        return false
+                    }
+                }
+                
+                return comp(cur: start)
+            }
+            
+            for n in 0..<boardSize {
+                // compute horizontal row
+                if computeLine(rowIterator: {$0}, colIterator: {$0 + 1}, startingAt: IndexPath(row: n, section: 0)) {
+                    winningCoords = (IndexPath(row: n, section: 0), IndexPath(row: n, section: boardSize - 1))
+                    print("win here")
+                    return true
+                }
+                // compute vertical rows
+                if computeLine(rowIterator: {$0 + 1}, colIterator: {$0}, startingAt: IndexPath(row: 0, section: n)) {
+                    winningCoords = (IndexPath(row: 0, section: n), IndexPath(row: boardSize - 1, section: n))
+                    
+                    return true
+                }
+            }
+            
+            // compute top left to bottom right
+            if computeLine(rowIterator: {$0 + 1}, colIterator: {$0 - 1}, startingAt: IndexPath(row: 0, section: 0)) {
+               
+                winningCoords = (IndexPath(row: 0, section: 0), IndexPath(row: boardSize - 1, section: boardSize - 1))
+                return true
+            }
+            
+            // compute bottom left to to top right
+            if computeLine(rowIterator: {$0 - 1}, colIterator: {$0 + 1}, startingAt: IndexPath(row: boardSize - 1, section: 0)) {
+                winningCoords = (IndexPath(row: boardSize - 1, section: 0), IndexPath(row: 0, section: boardSize - 1))
+                return true
+            }
+            
+            return false
+        }
+
+    }
     
     enum TicTacMark {
         case x

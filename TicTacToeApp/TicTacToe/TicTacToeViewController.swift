@@ -50,21 +50,13 @@ class TicTacToeViewController: UIViewController {
     private func updateBoard() {
         if let ticTacView = ticTacView {
             ticTacModel?.requestData(completion: ticTacView.syncBoard(with:forWin:))
-            if let winningCoords = ticTacModel?.winningCoords {
-                ticTacView.drawWin(from: winningCoords.0, to: winningCoords.1)
-            }
         }
     }
     
     @objc private func handleCommit() {
         if ticTacModel?.commitLastMove() ?? false {
             delegate?.didCommitMove(with: self)
-            if ticTacModel?.isWin == true, let coords = ticTacModel?.winningCoords {
-                print("trying to draw win at \(coords)!")
-                let start = coords.0
-                let end = coords.1
-                ticTacView.drawWin(from: start, to: end)
-            }
+            updateBoard()
         }
     }
 

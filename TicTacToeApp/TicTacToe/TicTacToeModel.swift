@@ -18,7 +18,7 @@ struct TicTacToe {
 
     var boardSize: Int
     
-    var winningCoords: (IndexPath, IndexPath)?
+    //var winningCoords: (IndexPath, IndexPath)?
 
     var board: [Array<TicTacMark?>]
     
@@ -58,8 +58,7 @@ struct TicTacToe {
             
             board[index/rowLen][index%rowLen] = mark
         }
-        
-        //let _ = isWin
+
     }
     
     // initialize an empty board
@@ -98,18 +97,21 @@ struct TicTacToe {
         return oCount >= xCount ? .x : .o
     }
     
-    var isWin: Bool {
-        mutating get {
+    var winningCoords: (IndexPath, IndexPath)? {
+        get {
             func computeLine(rowIterator: @escaping (Int) -> Int, colIterator: @escaping (Int) -> Int, startingAt start: IndexPath) -> Bool {
                 func comp(cur: IndexPath) -> Bool {
-                    guard cur.row < boardSize, cur.section < boardSize, let curVal = board[cur.row][cur.section] else { return false }
+                    guard cur.row < board.count, cur.section < board[0].count, let curVal = board[cur.row][cur.section] else { return false }
                     let nextRow = rowIterator(cur.row)
                     let nextCol = colIterator(cur.section)
+                    //print(board.count)
+                    
+                    guard nextCol >= 0, nextRow >= 0 else { return false }
                     
                     if (nextRow == boardSize) || (nextCol == boardSize) {
                         // reached the end of the row or column, no more to compute and it hasn't failed thus far so return true
                         return true
-                    } else if nextRow < boardSize, nextCol < boardSize, let nextVal = board[nextRow][nextCol] {
+                    } else if nextRow < board.count, nextCol < board[nextRow].count, let nextVal = board[nextRow][nextCol] {
                         // if the two values are equal, recurse, else false
                         return curVal == nextVal ? comp(cur: IndexPath(row: nextRow, section: nextCol)) : false
                     } else {
@@ -123,32 +125,33 @@ struct TicTacToe {
             for n in 0..<boardSize {
                 // compute horizontal row
                 if computeLine(rowIterator: {$0}, colIterator: {$0 + 1}, startingAt: IndexPath(row: n, section: 0)) {
-                    winningCoords = (IndexPath(row: n, section: 0), IndexPath(row: n, section: boardSize - 1))
-                    print("win here")
-                    return true
+                    return (IndexPath(row: n, section: 0), IndexPath(row: n, section: boardSize - 1))
+                    
+                    //return true
                 }
                 // compute vertical rows
                 if computeLine(rowIterator: {$0 + 1}, colIterator: {$0}, startingAt: IndexPath(row: 0, section: n)) {
-                    winningCoords = (IndexPath(row: 0, section: n), IndexPath(row: boardSize - 1, section: n))
+                    return (IndexPath(row: 0, section: n), IndexPath(row: boardSize - 1, section: n))
                     
-                    return true
+                    //return true
                 }
             }
             
             // compute top left to bottom right
             if computeLine(rowIterator: {$0 + 1}, colIterator: {$0 - 1}, startingAt: IndexPath(row: 0, section: 0)) {
                
-                winningCoords = (IndexPath(row: 0, section: 0), IndexPath(row: boardSize - 1, section: boardSize - 1))
-                return true
+                return (IndexPath(row: 0, section: 0), IndexPath(row: boardSize - 1, section: boardSize - 1))
+                //return true
             }
             
             // compute bottom left to to top right
             if computeLine(rowIterator: {$0 - 1}, colIterator: {$0 + 1}, startingAt: IndexPath(row: boardSize - 1, section: 0)) {
-                winningCoords = (IndexPath(row: boardSize - 1, section: 0), IndexPath(row: 0, section: boardSize - 1))
-                return true
+                return (IndexPath(row: boardSize - 1, section: 0), IndexPath(row: 0, section: boardSize - 1))
+                //return true
             }
             
-            return false
+            return nil
+            //return false
         }
 
     }

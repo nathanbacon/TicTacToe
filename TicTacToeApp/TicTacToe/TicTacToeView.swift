@@ -61,8 +61,10 @@ class TicTacToeView: UIView {
         guard start.row < boardSize, start.section < boardSize, start.row >= 0, start.section >= 0,
             end.section < boardSize, end.row < boardSize, end.row >= 0, end.section >= 0  else { return }
         
+        //let barRatio: CGFloat = 0.90
         let barThickness = self.barThickness * 0.65
         let barLength = (squares[0][boardSize - 1].maxX - squares[0][0].minX)
+        
         if start.row == end.row {
             // this is a horizontal row
             
@@ -78,7 +80,17 @@ class TicTacToeView: UIView {
             shapeLayer.path = path.cgPath
             layer.addSublayer(shapeLayer)
         } else if start.section == end.section {
-            // this is a vertical row
+            
+            let colTop = squares[start.row][start.section]
+            //let colBot = squares[end.row][start.section]
+            let startOrigin = CGPoint(x: colTop.midX - barThickness / 2, y: colTop.minY)
+            let size = CGSize(width: barThickness, height: barLength)
+            let rect = CGRect(origin: startOrigin, size: size)
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: 20)
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            layer.addSublayer(shapeLayer)
+            
         } else {
             // this is a diagonal
         }

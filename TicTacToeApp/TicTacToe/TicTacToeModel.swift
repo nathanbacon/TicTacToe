@@ -43,8 +43,8 @@ struct TicTacToe {
         return true
     }
     
-    func requestData(completion: ((_ data: [[TicTacToe.TicTacMark?]]) -> Void)) {
-        completion(board)
+    func requestData(completion: ((_ data: [[TicTacToe.TicTacMark?]], _ winningCoords: (IndexPath, IndexPath)?) -> Void)) {
+        completion(board, winningCoords)
     }
     
     // intializes a board from a one-dimensial array of size n*n where n is the length of a row
@@ -58,6 +58,8 @@ struct TicTacToe {
             
             board[index/rowLen][index%rowLen] = mark
         }
+        
+        //let _ = isWin
     }
     
     // initialize an empty board

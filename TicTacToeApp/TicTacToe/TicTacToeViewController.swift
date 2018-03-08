@@ -48,9 +48,11 @@ class TicTacToeViewController: UIViewController {
     }
     
     private func updateBoard() {
-        if let ticTacView = ticTacView, let ticTacModel = ticTacModel {
-            ticTacModel.requestData(completion: ticTacView.syncBoard(with: ))
-            
+        if let ticTacView = ticTacView {
+            ticTacModel?.requestData(completion: ticTacView.syncBoard(with:forWin:))
+            if let winningCoords = ticTacModel?.winningCoords {
+                ticTacView.drawWin(from: winningCoords.0, to: winningCoords.1)
+            }
         }
     }
     

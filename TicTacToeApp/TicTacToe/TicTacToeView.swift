@@ -120,7 +120,7 @@ class TicTacToeView: UIView {
     }
 
     
-    func syncBoard(with model: [[TicTacToe.TicTacMark?]]) {
+    func syncBoard(with model: [[TicTacToe.TicTacMark?]], forWin winningCoords: (IndexPath, IndexPath)?) {
         boardSize = model.count
         if let subLayers = layer.sublayers {
             for subLayer in subLayers {
@@ -145,6 +145,10 @@ class TicTacToeView: UIView {
   
             rowIndex += 1
             colIndex = 0
+        }
+        
+        if let winningCoords = winningCoords {
+            drawWin(from: winningCoords.0, to: winningCoords.1)
         }
     }
     

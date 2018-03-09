@@ -1,8 +1,8 @@
 # TicTacToe
 
 This project is used to demonstrate the process of creating an iMessage app from a standalone app. It's just a simple TicTacToe
-game, if you could even call it a game, as it can't detect wins as of yet. However, it's good enough to learn a little about 
-iMessage app extensions.
+game, if you could even call it a game, ~as it can't detect wins as of yet~. However, it's good enough to learn a little about 
+iMessage app extensions. It even has sticker support!
 
 ## Setup
 
@@ -17,6 +17,6 @@ below. Click and hold that to select your target, one's the standalone app and t
 
 ## Credits
 
-Lots of credit goes to Apple's demo app for Messages. Some code segments were blatantly lifted from that but a good part of this is unique and covers a few things Apple's demo doesn't. Their demo is really good and can be found at the link below.
+Lots of credit goes to Apple's demo app for Messages. Some code segments were ~blatantly lifted from~ inspired by that demo but a good part of this is unique and covers a few things Apple's demo doesn't. Their demo is really good and can be found at the link below.
 
 https://developer.apple.com/library/content/samplecode/IceCreamBuilder/Introduction/Intro.html

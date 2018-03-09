@@ -11,6 +11,9 @@ import Messages
 
 class MessagesViewController: MSMessagesAppViewController {
     
+    var stickerCache = TicTacStickerCache.cache
+    
+    
     // MARK: - Conversation Handling
     
     override func willBecomeActive(with conversation: MSConversation) {
@@ -74,8 +77,9 @@ class MessagesViewController: MSMessagesAppViewController {
 
             viewController = ticTacViewController
         } else {
-            viewController = UIViewController()
-            viewController.view.backgroundColor = UIColor.white
+            let boardViewController = GameStickerViewController()
+            viewController = boardViewController
+
         }
         
         configureChildViewController(viewController)
@@ -131,6 +135,9 @@ class MessagesViewController: MSMessagesAppViewController {
 extension MessagesViewController: TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController) {
         composeMessage(withModel: controller.ticTacModel?.queryItems, withImage: controller.ticTacView.screenShot)
+        //if let _ = controller.ticTacModel?.winningCoords {
+            stickerCache.sticker(for: controller, completion: {_ in })
+        //}
         dismiss()
     }
 }

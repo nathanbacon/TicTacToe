@@ -63,7 +63,7 @@ class TicTacToeView: UIView {
             end.section < boardSize, end.row < boardSize, end.row >= 0, end.section >= 0  else { return }
         
         //let barRatio: CGFloat = 0.90
-        let barThickness = self.barThickness * 0.65
+        let barThickness = self.barThickness * 0.90
         let barLength = (squares[0][boardSize - 1].maxX - squares[0][0].minX)
         
         if start.row == end.row {
@@ -94,22 +94,23 @@ class TicTacToeView: UIView {
             
         } else {
 
-            let diagLen = sqrt(2*barLength * barLength)
-            let minX = squares[1][0].minX - (diagLen - barLength) / 2
+            //let diagLen = sqrt(2*barLength * barLength)
+            let minX = squares[1][0].minX // - (diagLen - barLength) / 2
             let size = CGSize(width: barLength, height: barThickness)
             let origin = CGPoint(x: minX , y: squares[1][0].midY - barThickness / 2)
             let rect = CGRect(origin: origin, size: size)
             let bar = CAShapeLayer()
             bar.path = UIBezierPath(roundedRect: rect, cornerRadius: 20).cgPath
             layer.addSublayer(bar)
+            bar.fillColor = UIColor.green.cgColor
             
             let x = rect.midX
             let y = rect.midY
-            
+            let a = start.row < end.row ? CGFloat.pi / 4 : CGFloat.pi / 4 * -1
             var trans = CATransform3DMakeTranslation(x, y, 0)
-            trans = CATransform3DRotate(trans, CGFloat.pi / 4, 0, 0, 1.0)
+            trans = CATransform3DRotate(trans, a, 0, 0, 1.0)
             trans = CATransform3DTranslate(trans, -1 * x, -1 * y, 0)
-            //bar.transform = trans
+            bar.transform = trans
         }
     }
     

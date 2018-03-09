@@ -19,7 +19,6 @@ class MessagesViewController: MSMessagesAppViewController {
     override func willBecomeActive(with conversation: MSConversation) {
         // Called when the extension is about to move from the inactive to active state.
         // This will happen when the extension is about to present UI.
-        
         // Use this method to configure the extension and restore previously stored state.
         presentViewController(for: conversation, with: presentationStyle)
     }
@@ -135,9 +134,9 @@ class MessagesViewController: MSMessagesAppViewController {
 extension MessagesViewController: TicTacToeViewControllerDelegate {
     func didCommitMove(with controller: TicTacToeViewController) {
         composeMessage(withModel: controller.ticTacModel?.queryItems, withImage: controller.ticTacView.screenShot)
-        //if let _ = controller.ticTacModel?.winningCoords {
+        if let _ = controller.ticTacModel?.winningCoords {
             stickerCache.sticker(for: controller, completion: {_ in })
-        //}
+        }
         dismiss()
     }
 }

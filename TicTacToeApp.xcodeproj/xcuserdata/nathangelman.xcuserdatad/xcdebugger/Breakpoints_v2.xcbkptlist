@@ -9,54 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TicTacToeMessage/MessagesViewController.swift"
-            timestampString = "542270623.795967"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "didCommitMove(with:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TicTacToeMessage.MessagesViewController.didCommitMove(with: TicTacToeMessage.TicTacToeViewController) -&gt; ()"
-                  moduleName = "TicTacToeMessage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathangelman/Library/Mobile%20Documents/com~apple~CloudDocs/TicTacToeApp/TicTacToeMessage/MessagesViewController.swift"
-                  timestampString = "542270623.863937"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "864">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__ObjC.MSSticker) -&gt; () in TicTacToeMessage.MessagesViewController.didCommitMove(with: TicTacToeMessage.TicTacToeViewController) -&gt; ()"
-                  moduleName = "TicTacToeMessage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathangelman/Library/Mobile%20Documents/com~apple~CloudDocs/TicTacToeApp/TicTacToeMessage/MessagesViewController.swift"
-                  timestampString = "542270623.865658"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TicTacToeMessage/TicTacStickerCache.swift"
             timestampString = "542271680.273831"
             startingColumnNumber = "9223372036854775807"
@@ -64,22 +16,6 @@
             startingLineNumber = "105"
             endingLineNumber = "105"
             landmarkName = "sticker(for:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TicTacToeMessage/GameStickerViewController.swift"
-            timestampString = "542271680.2741621"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

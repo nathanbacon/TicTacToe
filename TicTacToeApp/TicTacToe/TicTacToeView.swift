@@ -12,7 +12,7 @@ class TicTacToeView: UIView {
     
     private static let lineToViewRatio: CGFloat = 0.90
     
-    var boardSize: Int = 3
+    var boardSize: Int = TicTacToe.defaultBoardSize
     
     lazy var boardArea: CGRect = {
         let sideLength = TicTacToeView.lineToViewRatio * bounds.width
@@ -57,6 +57,63 @@ class TicTacToeView: UIView {
 
     }
     
+    func drawWin(from start: IndexPath, to end: IndexPath){
+        //print("win detected")
+        guard start.row < boardSize, start.section < boardSize, start.row >= 0, start.section >= 0,
+            end.section < boardSize, end.row < boardSize, end.row >= 0, end.section >= 0  else { return }
+        
+        //let barRatio: CGFloat = 0.90
+        let barThickness = self.barThickness * 0.90
+        let barLength = (squares[0][boardSize - 1].maxX - squares[0][0].minX)
+        
+        if start.row == end.row {
+            // this is a horizontal row
+            
+            let row = squares[start.row]
+            let startOrigin = CGPoint(x: row[0].minX, y: row[0].midY - barThickness / 2)
+            
+            //let endOrigin = CGPoint(x: row[boardSize - 1].maxX, y: row[boardSize-1].midY - barThickness / 2)
+            let size = CGSize(width: barLength, height: barThickness)
+            let rect = CGRect(origin: startOrigin, size: size)
+
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: 20)
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            layer.addSublayer(shapeLayer)
+        } else if start.section == end.section {
+            
+            let colTop = squares[start.row][start.section]
+            //let colBot = squares[end.row][start.section]
+            let startOrigin = CGPoint(x: colTop.midX - barThickness / 2, y: colTop.minY)
+            let size = CGSize(width: barThickness, height: barLength)
+            let rect = CGRect(origin: startOrigin, size: size)
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: 20)
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            layer.addSublayer(shapeLayer)
+            
+        } else {
+
+            //let diagLen = sqrt(2*barLength * barLength)
+            let minX = squares[1][0].minX // - (diagLen - barLength) / 2
+            let size = CGSize(width: barLength, height: barThickness)
+            let origin = CGPoint(x: minX , y: squares[1][0].midY - barThickness / 2)
+            let rect = CGRect(origin: origin, size: size)
+            let bar = CAShapeLayer()
+            bar.path = UIBezierPath(roundedRect: rect, cornerRadius: 20).cgPath
+            layer.addSublayer(bar)
+            bar.fillColor = UIColor.green.cgColor
+            
+            let x = rect.midX
+            let y = rect.midY
+            let a = start.row < end.row ? CGFloat.pi / 4 : CGFloat.pi / 4 * -1
+            var trans = CATransform3DMakeTranslation(x, y, 0)
+            trans = CATransform3DRotate(trans, a, 0, 0, 1.0)
+            trans = CATransform3DTranslate(trans, -1 * x, -1 * y, 0)
+            bar.transform = trans
+        }
+    }
+    
     private func createVeritcalBars() {
         let numBars = (boardSize) - 1
         let combinedWidthOfBars = CGFloat(numBars) * barThickness
@@ -93,7 +150,7 @@ class TicTacToeView: UIView {
     }
 
     
-    func syncBoard(with model: [[TicTacToe.TicTacMark?]]) {
+    func syncBoard(with model: [[TicTacToe.TicTacMark?]], forWin winningCoords: (IndexPath, IndexPath)?) {
         boardSize = model.count
         if let subLayers = layer.sublayers {
             for subLayer in subLayers {
@@ -118,6 +175,10 @@ class TicTacToeView: UIView {
   
             rowIndex += 1
             colIndex = 0
+        }
+        
+        if let winningCoords = winningCoords {
+            drawWin(from: winningCoords.0, to: winningCoords.1)
         }
     }
     

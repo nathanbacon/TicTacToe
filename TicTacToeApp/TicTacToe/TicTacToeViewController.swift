@@ -49,13 +49,14 @@ class TicTacToeViewController: UIViewController {
     
     private func updateBoard() {
         if let ticTacView = ticTacView {
-            ticTacModel?.requestData(completion: ticTacView.syncBoard(with: ))
+            ticTacModel?.requestData(completion: ticTacView.syncBoard(with:forWin:))
         }
     }
     
     @objc private func handleCommit() {
         if ticTacModel?.commitLastMove() ?? false {
             delegate?.didCommitMove(with: self)
+            updateBoard()
         }
     }
 

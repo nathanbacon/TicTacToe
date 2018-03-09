@@ -58,6 +58,7 @@ class TicTacToeView: UIView {
     }
     
     func drawWin(from start: IndexPath, to end: IndexPath){
+        //print("win detected")
         guard start.row < boardSize, start.section < boardSize, start.row >= 0, start.section >= 0,
             end.section < boardSize, end.row < boardSize, end.row >= 0, end.section >= 0  else { return }
         
@@ -92,7 +93,23 @@ class TicTacToeView: UIView {
             layer.addSublayer(shapeLayer)
             
         } else {
-            // this is a diagonal
+
+            let diagLen = sqrt(2*barLength * barLength)
+            let minX = squares[1][0].minX - (diagLen - barLength) / 2
+            let size = CGSize(width: barLength, height: barThickness)
+            let origin = CGPoint(x: minX , y: squares[1][0].midY - barThickness / 2)
+            let rect = CGRect(origin: origin, size: size)
+            let bar = CAShapeLayer()
+            bar.path = UIBezierPath(roundedRect: rect, cornerRadius: 20).cgPath
+            layer.addSublayer(bar)
+            
+            let x = rect.midX
+            let y = rect.midY
+            
+            var trans = CATransform3DMakeTranslation(x, y, 0)
+            trans = CATransform3DRotate(trans, CGFloat.pi / 4, 0, 0, 1.0)
+            trans = CATransform3DTranslate(trans, -1 * x, -1 * y, 0)
+            //bar.transform = trans
         }
     }
     

@@ -59,6 +59,7 @@ struct TicTacToe {
             board[index/rowLen][index%rowLen] = mark
         }
 
+        isEnabled = winningCoords == nil
     }
     
     // initialize an empty board
@@ -106,12 +107,10 @@ struct TicTacToe {
                     let nextCol = colIterator(cur.section)
                     //print(board.count)
                     
-                    guard nextCol >= 0, nextRow >= 0 else { return false }
-                    
                     if (nextRow == boardSize) || (nextCol == boardSize) {
                         // reached the end of the row or column, no more to compute and it hasn't failed thus far so return true
                         return true
-                    } else if nextRow < board.count, nextCol < board[nextRow].count, let nextVal = board[nextRow][nextCol] {
+                    } else if nextRow >= 0, nextCol >= 0,nextRow < board.count, nextCol < board[nextRow].count, let nextVal = board[nextRow][nextCol] {
                         // if the two values are equal, recurse, else false
                         return curVal == nextVal ? comp(cur: IndexPath(row: nextRow, section: nextCol)) : false
                     } else {
@@ -138,7 +137,7 @@ struct TicTacToe {
             }
             
             // compute top left to bottom right
-            if computeLine(rowIterator: {$0 + 1}, colIterator: {$0 - 1}, startingAt: IndexPath(row: 0, section: 0)) {
+            if computeLine(rowIterator: {$0 + 1}, colIterator: {$0 + 1}, startingAt: IndexPath(row: 0, section: 0)) {
                
                 return (IndexPath(row: 0, section: 0), IndexPath(row: boardSize - 1, section: boardSize - 1))
                 //return true
